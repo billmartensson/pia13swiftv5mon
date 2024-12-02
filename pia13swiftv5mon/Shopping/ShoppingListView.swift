@@ -11,9 +11,11 @@ struct ShoppingListView: View {
     
     @State var showInfo = false
     
+    @State private var path = [String]()
+
     var body: some View {
         
-        NavigationStack {
+        NavigationStack(path: $path) {
             VStack {
                 Text("SHOPPING LIST")
                 
@@ -21,10 +23,22 @@ struct ShoppingListView: View {
                     Text("Bananer")
                 }
                 
+                Button(action: {
+                    path.append("bananer")
+                }) {
+                    Text("Bananer2")
+                }
+                
                 List {
                     Text("Mjölk")
                     Text("Ägg")
                     Text("Smör")
+                }
+                
+                Button(action: {
+                    path.append("go")
+                }) {
+                    Text("GO GO")
                 }
                 
             }
@@ -45,6 +59,14 @@ struct ShoppingListView: View {
             }
             .fullScreenCover(isPresented: $showInfo) {
                 InfoView()
+            }
+            .navigationDestination(for: String.self) { selection in
+                if selection == "go" {
+                    Text("GOGOGOGOGOGOGOGOGOGO")
+                }
+                if selection == "bananer" {
+                    ShopDetailView()
+                }
             }
             
         } //NavigationStack

@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct ShopDetailView: View {
+    @Environment(\.dismiss) var dismiss
+    
+    @State var shopname = ""
+        
     var body: some View {
         
         VStack {
@@ -17,8 +21,16 @@ struct ShopDetailView: View {
                 Text("CHOOSE IMAGE")
             }
             
+            TextField("", text: $shopname )
+                .background(Color.gray)
             
-            Button(action: {}) {
+            Button(action: {
+                if(shopname == "") {
+                    // visa fel
+                } else {
+                    dismiss()
+                }
+            }) {
                 Text("Save")
             }
                 
